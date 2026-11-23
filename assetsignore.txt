@@ -1,0 +1,7 @@
+_worker.js
+wrangler.jsonc
+build.py
+README.md
+fill-in-list.md
+*.json
+assetsignore.txt

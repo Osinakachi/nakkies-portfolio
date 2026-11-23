@@ -42,6 +42,15 @@ Newsletter signups arrive as notification emails; connect a mailing-list service
 - Social links point to the networks' home pages. Put your profile URLs in `index.html` and in `build.py` (contact page), then re-run the build.
 - Favicon and share image still use Webflow defaults.
 
+## Password-protected case studies (Moneris Go portal)
+- Pages: `moneris.html` (overview) and `moneris-*.html` (four case studies). Content lives in `moneris.json`; `unlock.html` is the password page.
+- `_worker.js` blocks every `/moneris*` URL unless the visitor has signed in. The pages are never served without the cookie.
+- Set the password in Cloudflare: your project > Settings > Variables and Secrets > add secret `CASE_STUDY_PASSWORD` (value: the password). It is not case-sensitive. Changing it signs everyone out.
+- `wrangler.jsonc` must list `"run_worker_first": ["/api/*", "/moneris*"]` (already set in the file included here).
+- Purple highlighted text on those pages is SAMPLE content. `fill-in-list.md` lists every sample. Replace each `[[P5 ... || sample]]` in `moneris.json` with real text, then run `python3 build.py`.
+- Grey dashed boxes are image slots; each names the Figma frame to export.
+- Create a file named `.assetsignore` on GitHub with the contents of `assetsignore.txt` so the JSON content and worker are not served publicly.
+
 ## Notes
 - Do not add `data-wf-status` or `data-wf-domain` back to the `<html>` tag; Webflow's script would show its badge again.
 - Animations are tied to element IDs (`data-w-id`). Keep those attributes when you edit Home.

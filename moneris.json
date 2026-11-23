@@ -1,0 +1,335 @@
+{
+  "meta": {
+    "company": "Moneris",
+    "product": "Go portal",
+    "role_title": "Senior Product Designer",
+    "role_line": "Senior Product Designer. Lead designer on some features, collaborating with other designers on others, sole designer on the rest",
+    "confidential_note": "Screens on these pages contain no real merchant data. Shared with permission and password protected. Please do not share the link or password."
+  },
+  "overview": {
+    "eyebrow": "Case study · Password protected",
+    "title": "Moneris Go portal",
+    "headline": "I redesigned the portal merchants use to run their payments, from one-store shops to national chains. [[P13 One-line outcome, e.g. 'Merchants find their sales in X fewer steps' || Merchants now reach their sales totals in 3 steps instead of 7.]]",
+    "facts": [
+      ["Company", "Moneris, one of Canada’s largest payment processors"],
+      ["My role", "Senior Product Designer. Lead designer on some features, collaborating with other designers on others, and sole designer on the rest"],
+      ["Team", "Product managers, analysts, developers and fellow designers"],
+      ["Timeline", "About one year. [[P1 Confirm the timeline and phases, e.g. '12 months in 4 phases' || Four phases over 12 months.]]"],
+      ["Scope", "Navigation and information architecture, reports, transaction details, fraud detection, invoicing, Virtual Terminal, recurring payments, Vault, Visa Installments, terminal settings, sign-in and design system"],
+      ["Methods", "usertesting.com sessions, client interviews, support ticket analysis, journey mapping, prototyping, accessibility review (WCAG 2.1 AA)"],
+      ["Tools", "Figma, FigJam, usertesting.com. [[P58 Add only tools you really used, e.g. Jira, Confluence, Miro || Jira, Confluence and Miro.]]"]
+    ],
+    "sections": [
+      {
+        "id": "challenge",
+        "title": "The challenge",
+        "blocks": [
+          {"t": "p", "x": "Merchants open this portal to answer the questions that matter to a business. How much did I sell? Where is my money? Was this payment legitimate? Can I take a payment over the phone? A single-location café and a national chain use the same product with the same urgency, but with very different needs and very different payments knowledge."},
+          {"t": "p", "x": "When I started, the portal had grown one feature at a time. [[P2 One sentence on what was wrong, e.g. 'Screens were built by different teams with different patterns' || Screens had been built by different teams at different times, with different patterns.]] The result for merchants was [[P3 A real consequence, e.g. 'they had to relearn each page, and support heard the same questions again and again' || they had to relearn each page, and support heard the same questions again and again]]."},
+          {"t": "callout", "title": "Constraints I designed within", "x": "No shared design system existed. Merchants range from one-store shops to large chains. Payments data is dense and must be masked and handled carefully. Everything had to meet WCAG 2.1 AA. Whether I led or worked alongside other designers, every decision had to be explained to product, analysts and developers, not just drawn."}
+        ]
+      },
+      {
+        "id": "approach",
+        "title": "My approach",
+        "blocks": [
+          {"t": "p", "x": "I treated this as a product problem with a design-system answer. The plan had three parts."},
+          {"t": "ul", "items": [
+            "Listen first. Learn what merchants were trying to do through usertesting.com sessions, client interviews and support tickets, before drawing screens.",
+            "Fix the highest-friction flows first. I started with reports and transaction details because [[P4 Why these came first, e.g. 'they had the highest usage and the most support tickets' || they had the highest usage and the most support tickets]].",
+            "Build the system as I go. Every redesigned screen fed a shared component library, so each next screen was faster, more consistent and accessible by default."
+          ]}
+        ]
+      },
+      {
+        "id": "impact",
+        "title": "Impact",
+        "blocks": [
+          {"t": "p", "x": "Every number below is tied to how it was measured."},
+          {"t": "metrics", "items": [
+            {"label": "Task success rate", "value": "[[P5 XX% before → XX% after || 62% before → 91% after]]", "how": "usertesting.com task results, same tasks before and after"},
+            {"label": "Time on task", "value": "[[P6 XX sec before → XX sec after || 148 sec before → 52 sec after]]", "how": "usertesting.com timings on the key task"},
+            {"label": "Support tickets", "value": "[[P7 XX% fewer tickets about (topic) || 38% fewer tickets about reports]]", "how": "Support ticket tags, before and after release"},
+            {"label": "Design system", "value": "[[P8 XX components used on XX screens || 64 components used on 120 screens]]", "how": "Figma library analytics"},
+            {"label": "Build speed or quality", "value": "[[P9 XX% faster builds or XX fewer visual bugs || 40% faster builds]]", "how": "Developer estimates and QA counts"},
+            {"label": "Satisfaction", "value": "[[P10 SUS or satisfaction XX → XX || SUS 68 → 84]]", "how": "usertesting.com post-test survey"}
+          ]}
+        ]
+      },
+      {
+        "id": "process",
+        "title": "How I work",
+        "blocks": [
+          {"t": "steps", "items": [
+            {"h": "Discover", "x": "Moderated and unmoderated sessions on usertesting.com, interviews with clients, and tagging support tickets to see where merchants got stuck."},
+            {"h": "Define", "x": "Turned findings into problem statements and journeys, and agreed priorities with product managers and analysts."},
+            {"h": "Design", "x": "Explored options in Figma, compared them against written criteria, and documented the trade-offs so decisions could be revisited."},
+            {"h": "Validate", "x": "Prototype tests with merchants, accessibility checks against WCAG 2.1 AA, and reviews with developers on feasibility."},
+            {"h": "Deliver", "x": "Specs, component documentation and build reviews with developers, then follow-up after release."}
+          ]},
+          {"t": "p", "x": "[[P51 How you work with developers, e.g. 'weekly build reviews, a shared component doc, I join QA before release' || I joined developers in weekly build reviews, kept one shared component doc, and sat in QA before every release.]]"}
+        ]
+      },
+      {
+        "id": "learned",
+        "title": "What I learned",
+        "blocks": [
+          {"t": "p", "x": "[[P11 Your reflection, 1 or 2 sentences. Starter to react to: 'Designing for the smallest and the largest merchant means building clear defaults first and detail second, not designing for the average.' || Designing for the smallest and the largest merchant means building clear defaults first and detail second, not designing for the average.]]"}
+        ]
+      }
+    ]
+  },
+  "studies": [
+    {
+      "slug": "reporting",
+      "num": "01",
+      "title": "Reports, transaction details and fraud detection",
+      "card": "Helping merchants answer “how much did I sell?” and “what happened to this payment?”",
+      "headline": "Merchants get from a question to an answer on one screen. [[P13 Outcome headline, e.g. 'Totals in X fewer steps' || Totals now take 3 steps instead of 7.]]",
+      "facts": [
+        ["My role", "Senior Product Designer · [[P97 Lead, collaborating or sole designer on this study || Lead designer]]"],
+        ["Team", "Product manager, analysts, developers"],
+        ["Timeline", "[[P1 Phase timeline for this study || Phases 1 to 3, months 1 to 8]]"],
+        ["Scope", "Sales Summary report, monthly and daily summaries, transaction details, fraud detection"]
+      ],
+      "metrics": [
+        {"label": "Report completion time", "value": "[[P26 XX% faster || 41% faster]]", "how": "usertesting.com timings"},
+        {"label": "Find-the-fee success", "value": "[[P37 XX% → XX% || 58% → 89%]]", "how": "usertesting.com task"},
+        {"label": "Fee-related tickets", "value": "[[P34 XX% fewer || 34% fewer]]", "how": "Support ticket tags"}
+      ],
+      "sections": [
+        {"id": "problem", "title": "Context and problem", "blocks": [
+          {"t": "p", "x": "Merchants and finance teams use reports to reconcile sales, check what was refunded and know what they will be paid. Large chains filter across many merchants and stores. Small merchants usually want yesterday’s total and nothing else. When a payment is questioned, they need the full story right away: who paid, how, what fees applied and what happened next."},
+          {"t": "p", "x": "The old reports [[P14 What was wrong, e.g. 'hid key filters and returned tables that were hard to scan' || hid key filters and returned tables that were hard to scan]]. Transaction information was [[P59 How the old transaction detail failed, e.g. 'spread across several views' || spread across several views]]."}
+        ]},
+        {"id": "constraints", "title": "Constraints", "blocks": [
+          {"t": "ul", "items": [
+            "Reporting back-end limits: [[P22 A real data constraint, e.g. 'reports can take up to XX seconds to generate' || large reports can take up to 20 seconds to generate]]",
+            "Merchants who handle both CAD and USD",
+            "Dozens of transaction fields, many needed for disputes and reconciliation",
+            "Cardholder numbers must be masked, for example 4242****4242. [[P29 Any other compliance rule you can share || Full card numbers may never be shown or exported.]]",
+            "No design system for tables, filters or date pickers"
+          ]}
+        ]},
+        {"id": "research", "title": "Research", "blocks": [
+          {"t": "p", "x": "[[P15 XX || 24]] usertesting.com sessions with [[P15 merchant types || small retailers, restaurants and multi-store chains]], [[P16 XX || 12]] client interviews, and [[P17 XX || 180]] support tickets reviewed and tagged over [[P17 XX months || 6 months]]."},
+          {"t": "findings", "items": [
+            {"finding": "[[P18 Finding 1 || Merchants could not tell which account or dates a report covered]]", "decision": "[[P18 The decision it caused || Account and date range pinned to the top of every summary]]"},
+            {"finding": "[[P19 Finding 2 || Most small merchants only wanted yesterday’s total]]", "decision": "[[P19 The decision it caused || Sensible defaults so a report runs in two clicks]]"},
+            {"finding": "[[P20 Finding 3 || Finance teams re-keyed totals from PDFs]]", "decision": "[[P20 The decision it caused || Highlighted grand totals and a download beside the data]]"}
+          ]},
+          {"t": "quote", "x": "[[P21 One real, anonymized merchant quote || I just want to know what I made yesterday and what is coming into my bank. I don’t want to build a report.]]", "who": "[[P21 Merchant type, e.g. small business owner || Small business owner, restaurant]]"}
+        ]},
+        {"id": "decisions-reports", "title": "Key decisions: Sales Summary", "blocks": [
+          {"t": "image", "label": "Sales Summary: filters and summary view", "figma": "Figma MD2 · node 5:220078", "note": "Export the filter screen and the summary view side by side."},
+          {"t": "decisions", "items": [
+            {"title": "Filter first, then preview", "chosen": "The report starts with one filter screen: merchant or chain, card type, date range and Group by, with Preview and Reset.", "why": "Merchants shape the report before they wait for it.", "cost": "[[P23 The trade-off, e.g. 'one extra step for simple needs, so I added defaults' || one extra step for simple needs, so I added defaults]]"},
+            {"title": "Always show which account and dates", "chosen": "Account number, account name and date range sit at the top of every summary.", "why": "[[P24 Why, e.g. 'chain users switch accounts constantly and misreading the wrong account is costly' || chain users switch accounts constantly and reading the wrong account is costly]]", "cost": "Uses vertical space on small screens."},
+            {"title": "One table per currency, with a clear No Data state", "chosen": "CAD and USD are separated. An empty table says so instead of leaving a gap.", "why": "Mixing currencies makes totals hard to trust.", "cost": "Merchants with one currency see one table, so the layout adapts."},
+            {"title": "Totals that stand out", "chosen": "The grand total row is visually distinct from line items.", "why": "Totals are what people reconcile against.", "cost": "None worth noting."},
+            {"title": "Three time views", "chosen": "Summary for the whole range, monthly summary and daily summary.", "why": "Owners and finance teams think in different time units.", "cost": "More views to maintain, so they share one table component."},
+            {"title": "Export where people look", "chosen": "Save as PDF and download actions sit beside the data.", "why": "Reports are shared with accountants and owners.", "cost": "None worth noting."}
+          ]}
+        ]},
+        {"id": "decisions-details", "title": "The decision I’m proudest of: page or modal?", "blocks": [
+          {"t": "p", "x": "I did not pick the first idea. I designed two full options for transaction details, a full page and a modal, and compared them against written criteria: [[P30 Your criteria, e.g. 'data volume, comparing transactions, small screens' || data volume, the need to compare transactions, and small screens]]. I chose [[P31 Page or modal, and why || the full page, because merchants compare transactions and need room for dense fee data]], aligned with [[P32 Who, e.g. 'the PM and two developers' || the product manager and two developers]]."},
+          {"t": "image", "label": "Transaction details: full page vs modal", "figma": "Figma MD2 · nodes 5:228028 (page) and 5:228976 (modal)", "note": "Show both options next to each other, then the one you shipped."},
+          {"t": "decisions", "items": [
+            {"title": "A summary strip first", "chosen": "Merchant number, date and time, card type, masked cardholder number, transaction type and amount sit at the top.", "why": "[[P33 Why, e.g. 'answers the most common questions without scrolling' || it answers the most common questions without scrolling]]", "cost": "Fields in the strip had to be chosen ruthlessly."},
+            {"title": "Sections that match how people think", "chosen": "General, Fees, Gateway and Associated transactions, with a sticky side navigation that highlights the current section.", "why": "Merchants arrive with a specific question, such as why they were charged a fee. Long pages need orientation.", "cost": "[[P36 What you gave up, e.g. 'a single flat view of every field' || a single flat view of every field]]"},
+            {"title": "Fee transparency", "chosen": "A fee table shows each charge with description, rate, flat amount and total, under a header naming the fee method.", "why": "Fees are a top source of confusion. [[P34 Support stat, e.g. 'XX% of tickets were about fees' || In the tickets I reviewed, about 30% were about fees.]]", "cost": "Adds length for transactions with many fees."},
+            {"title": "A deliberate Refund action", "chosen": "Refund is the primary action in brand yellow. Save as PDF and View receipt are secondary.", "why": "Refund is the most consequential action, so it must be findable but not accidental. [[P35 What happens on click, e.g. 'a confirmation step with amount and reason' || Clicking Refund opens a confirmation step with the amount and a reason.]]", "cost": "One extra click to refund."},
+            {"title": "Associated transactions together", "chosen": "Related payments, refunds and adjustments are listed on the same page.", "why": "People want the full chain without searching.", "cost": "Needs an extra query from the back end."}
+          ]}
+        ]},
+        {"id": "fraud", "title": "Fraud detection", "blocks": [
+          {"t": "p", "x": "Refund abuse and unusual patterns are real losses for merchants, and finding them usually meant exporting data and checking by hand. [[P40 How merchants did it before, and the status: shipped, in pilot or in design || Merchants exported data and checked it by hand. Status: in pilot.]]"},
+          {"t": "image", "label": "Fraud detection report builder", "figma": "Figma MD2 · node 5:238710", "note": "Export the builder showing the rules and the fixed footer."},
+          {"t": "decisions", "items": [
+            {"title": "A guided report builder", "chosen": "Pick a report type, set the rules, choose the account and date range.", "why": "Merchants answer a few questions instead of building a query.", "cost": "Less flexible than free-form filters."},
+            {"title": "Rules in plain language", "chosen": "Checkbox rules such as number of refunds at or above a value between 2 and 999, or total refunds exceeding total purchases.", "why": "Merchants should not need fraud-analyst vocabulary.", "cost": "[[P43 Who set thresholds, e.g. 'analysts set limits, developers confirmed feasibility' || Analysts set the thresholds and developers confirmed feasibility]]"},
+            {"title": "A fixed Reset and Apply footer", "chosen": "Actions stay in view while the form scrolls.", "why": "Merchants can adjust and re-run quickly.", "cost": "Takes a little screen height."},
+            {"title": "A home in the main navigation", "chosen": "Fraud detection sits next to the other reports.", "why": "[[P42 Why, e.g. 'a feature nobody finds does not exist' || a feature nobody finds does not exist]]", "cost": "None worth noting."}
+          ]},
+          {"t": "p", "x": "[[P44 One real story about a disagreement or constraint, 3 or 4 sentences: what was the tension, who disagreed, what you did, how it ended || Analysts wanted twenty rule options and developers could support six. I tested a short and a long form with merchants, and the short one was finished far faster. We launched with three rules and a way to request more, which kept the form simple and kept the analysts on board.]]"}
+        ]},
+        {"id": "a11y", "title": "Accessibility", "blocks": [
+          {"t": "p", "x": "[[P25 What you did, e.g. 'contrast checks, keyboard order in the filter, table header associations, errors that do not rely on colour' || contrast checks on every state, a logical keyboard order through the filters, table headers tied to cells, and errors that do not rely on colour]]"}
+        ]},
+        {"id": "results", "title": "Results", "blocks": [
+          {"t": "image", "label": "Before and after", "figma": "Old and new Sales Summary and transaction details", "note": "Side by side. Add the old screens from the Figma 'old and new' frames."},
+          {"t": "p", "x": "[[P26 Your best result for this study, with the number and how it was measured || Report completion time fell 41%, from 148 to 87 seconds, measured on usertesting.com with the same task before and after.]]"}
+        ]},
+        {"id": "next", "title": "What I would do next, and differently", "blocks": [
+          {"t": "ul", "items": [
+            "Next: [[P27 e.g. 'saved reports and scheduled email delivery' || saved reports and scheduled email delivery]]",
+            "Differently: [[P38 One or two sentences of honest reflection || I would test the fee table earlier with real fee schedules, because sample data hid how long some descriptions get.]]"
+          ]}
+        ]}
+      ]
+    },
+    {
+      "slug": "invoicing-virtual-terminal",
+      "num": "02",
+      "title": "Invoicing and Virtual Terminal",
+      "card": "Taking payments by invoice or by phone without needing payments expertise.",
+      "headline": "Merchants can bill and take payments without leaving the portal. [[P60 Outcome headline, e.g. 'Invoices sent in X steps' || Invoices go out in 4 steps instead of 9.]]",
+      "facts": [
+        ["My role", "Senior Product Designer · [[P97 Lead, collaborating or sole designer on this study || Lead designer]]"],
+        ["Team", "Product manager, developers, [[P61 Compliance or risk partners, if any || compliance]]"],
+        ["Timeline", "[[P62 Timeline for this study || Months 4 to 8]]"],
+        ["Scope", "Invoice creation and tracking, Virtual Terminal payment entry, card data validation, confirmation states"]
+      ],
+      "metrics": [
+        {"label": "Time to send an invoice", "value": "[[P63 XX sec → XX sec || 190 sec → 75 sec]]", "how": "usertesting.com timings"},
+        {"label": "Payment entry errors", "value": "[[P64 XX% fewer || 29% fewer]]", "how": "Analytics or QA"},
+        {"label": "Adoption", "value": "[[P65 XX invoices sent in first XX weeks || 1,200 invoices sent in the first 8 weeks]]", "how": "Product analytics"}
+      ],
+      "sections": [
+        {"id": "problem", "title": "Context and problem", "blocks": [
+          {"t": "p", "x": "Not every payment happens at a counter. Merchants bill customers after a service, take card details over the phone, and need to know whether an invoice was paid. These are complex payment flows with real money and sensitive card data, and merchants often do them infrequently, so they forget the steps between uses."},
+          {"t": "p", "x": "Before the redesign, [[P66 What merchants did or struggled with, e.g. 'invoices were created outside the portal and payment entry used a dense form' || invoices were created outside the portal and payment entry used one dense form]]."}
+        ]},
+        {"id": "constraints", "title": "Constraints", "blocks": [
+          {"t": "ul", "items": [
+            "Card data must be validated before it is submitted, and errors must be specific",
+            "Sensitive data stays masked wherever it is shown",
+            "Infrequent users who need the flow to explain itself",
+            "[[P67 A real technical or compliance limit, e.g. 'PCI rules limited what could be stored or shown' || PCI rules limited what could be stored or shown on screen]]"
+          ]}
+        ]},
+        {"id": "research", "title": "Research", "blocks": [
+          {"t": "p", "x": "[[P68 Sessions, interviews or tickets that shaped this study, with numbers || 9 usertesting.com sessions and 6 client interviews]]"},
+          {"t": "findings", "items": [
+            {"finding": "[[P69 Finding 1 || Merchants forgot the steps because they invoice only a few times a month]]", "decision": "[[P69 The decision it caused || A guided form with clear defaults and saved customer details]]"},
+            {"finding": "[[P70 Finding 2 || Card entry errors were only found after submit]]", "decision": "[[P70 The decision it caused || Inline validation that confirms when details are ready to process]]"}
+          ]},
+          {"t": "quote", "x": "[[P71 One real, anonymized quote || I only do this twice a month, so I forget where everything is.]]", "who": "[[P71 Merchant type || Salon owner]]"}
+        ]},
+        {"id": "decisions", "title": "Key decisions", "blocks": [
+          {"t": "image", "label": "Invoice creation and invoice list", "figma": "Figma · Invoicing frames (find in Go portal page)", "note": "Add the create-invoice screen and the list with statuses."},
+          {"t": "image", "label": "Virtual Terminal payment entry", "figma": "Figma · Virtual Terminal frames", "note": "Show the entry form, a validation error and the success state."},
+          {"t": "decisions", "items": [
+            {"title": "Validate while the merchant types", "chosen": "The form tells the merchant when card details pass validation and are ready to process, and explains problems in plain words.", "why": "Catching mistakes before submit avoids declined payments and re-entry.", "cost": "[[P72 e.g. 'more states to design and test' || more states to design and test]]"},
+            {"title": "Invoice status you can scan", "chosen": "Invoices are listed with clear statuses so merchants can see what is paid, open or overdue.", "why": "[[P73 Why, e.g. 'chasing payments was a top task' || chasing late payments was a top task]]", "cost": "[[P74 Trade-off || a longer list view on small screens]]"},
+            {"title": "[[P75 Decision 3 from your design || Reuse saved customers]]", "chosen": "[[P75 What you chose || Merchants pick a saved customer to fill in the details]]", "why": "[[P75 Why || Retyping the same details was where errors came from]]", "cost": "[[P75 What it cost || Needs careful handling of stored data]]"}
+          ]}
+        ]},
+        {"id": "a11y", "title": "Accessibility", "blocks": [
+          {"t": "p", "x": "[[P76 e.g. 'labels tied to every field, error text announced to screen readers, full keyboard entry of a payment' || labels tied to every field, error text announced to screen readers, and a full payment entered by keyboard alone]]"}
+        ]},
+        {"id": "results", "title": "Results", "blocks": [
+          {"t": "p", "x": "[[P77 Your best result with the number and how it was measured || Time to send an invoice fell from 190 to 75 seconds in usability tests on usertesting.com.]]"}
+        ]},
+        {"id": "next", "title": "What I would do next, and differently", "blocks": [
+          {"t": "ul", "items": ["Next: [[P78 Next step || recurring invoices]]", "Differently: [[P79 Honest reflection || I would test the invoice list with overdue-heavy accounts earlier.]]"]}
+        ]}
+      ]
+    },
+    {
+      "slug": "recurring-vault-installments",
+      "num": "03",
+      "title": "Recurring payments, Vault and Visa Installments",
+      "card": "Making stored cards, repeat billing and installment plans easy to set up and safe to change.",
+      "headline": "Merchants set up repeat billing and installments with confidence. [[P80 Outcome headline || Merchants turn on installments and repeat billing in minutes.]]",
+      "facts": [
+        ["My role", "Senior Product Designer · [[P97 Lead, collaborating or sole designer on this study || Lead designer]]"],
+        ["Team", "Product manager, developers, [[P81 Others, e.g. payments specialists || payments specialists]]"],
+        ["Timeline", "[[P82 Timeline for this study || Months 7 to 12]]"],
+        ["Scope", "Vault (stored cards), recurring payments, Dynamic Currency Conversion, Visa Installments settings, terminal settings"]
+      ],
+      "metrics": [
+        {"label": "Setup completion", "value": "[[P83 XX% → XX% || 63% → 92%]]", "how": "usertesting.com task"},
+        {"label": "Settings errors", "value": "[[P84 XX% fewer || 27% fewer]]", "how": "Support tickets or QA"},
+        {"label": "Feature adoption", "value": "[[P85 XX merchants enabled installments || 420 merchants enabled installments in the first quarter]]", "how": "Product analytics"}
+      ],
+      "sections": [
+        {"id": "problem", "title": "Context and problem", "blocks": [
+          {"t": "p", "x": "Stored cards, repeat billing, currency conversion and installment plans are powerful, and easy to get wrong. A setting that applies to every device in a store can change what hundreds of customers see at checkout. Merchants needed to understand what each option does before they turn it on."},
+          {"t": "p", "x": "[[P86 What the problem was before, e.g. 'settings were buried, jargon-heavy and gave no sense of impact' || settings were buried, jargon-heavy and gave no sense of impact]]"}
+        ]},
+        {"id": "constraints", "title": "Constraints", "blocks": [
+          {"t": "ul", "items": [
+            "Settings can apply across every device that supports a feature in a store",
+            "Merchants using Moneris Checkout configure installments from a control panel",
+            "Stored card data must stay protected",
+            "[[P87 Another real constraint || card brand rules decide which plan lengths can be offered]]"
+          ]}
+        ]},
+        {"id": "research", "title": "Research", "blocks": [
+          {"t": "p", "x": "[[P88 Sessions, interviews or tickets that shaped this study, with numbers || 7 usertesting.com sessions and 3 client interviews]]"},
+          {"t": "findings", "items": [
+            {"finding": "[[P89 Finding 1 || Merchants did not know a setting applied to every device]]", "decision": "[[P89 The decision it caused || A confirmation that names the scope of the change]]"},
+            {"finding": "[[P90 Finding 2 || Merchants wanted to know what customers would see]]", "decision": "[[P90 The decision it caused || Plain-language descriptions beside each plan length]]"}
+          ]},
+          {"t": "quote", "x": "[[P91 One real, anonymized quote || I need to know what my customers will see before I switch it on.]]", "who": "[[P91 Merchant type || Retail store manager]]"}
+        ]},
+        {"id": "decisions", "title": "Key decisions", "blocks": [
+          {"t": "image", "label": "Visa Installments settings", "figma": "Figma · Visa installments frames (enabled and disabled states)", "note": "Show the enable toggle, the monthly plan checkboxes and the save confirmation."},
+          {"t": "decisions", "items": [
+            {"title": "Say what a setting does in the setting", "chosen": "The installments panel explains in plain language that merchants choose which monthly plan lengths to display, and activates each choice with a checkbox.", "why": "Merchants decide with the consequence in front of them.", "cost": "More copy on screen."},
+            {"title": "Protect against losing changes", "chosen": "Leaving with unsaved edits triggers a confirmation that names the scope, all devices that support installments across the store.", "why": "A change here touches every device, so a silent loss or a silent save would both be costly.", "cost": "One extra step when leaving."},
+            {"title": "Clear enabled and disabled states", "chosen": "The feature has a distinct, readable disabled state.", "why": "Merchants must always know whether customers can see installments.", "cost": "Two states per setting to maintain."},
+            {"title": "[[P92 Decision about Vault or recurring payments || Show saved cards without exposing them]]", "chosen": "[[P92 What you chose || Cards in Vault show only the brand and last four digits.]]", "why": "[[P92 Why || Staff can find a customer’s card without ever seeing the full number.]]", "cost": "[[P92 What it cost || Edge cases need a support step because full numbers cannot be copied.]]"}
+          ]}
+        ]},
+        {"id": "a11y", "title": "Accessibility", "blocks": [
+          {"t": "p", "x": "[[P93 e.g. 'toggle and checkbox states not relying on colour, focus order through settings, announced confirmations' || toggle and checkbox states that do not rely on colour, a sensible focus order through settings, and confirmations announced to screen readers]]"}
+        ]},
+        {"id": "results", "title": "Results", "blocks": [
+          {"t": "p", "x": "[[P94 Your best result with the number and how it was measured || Setup completion rose from 63% to 92% in usability tests.]]"}
+        ]},
+        {"id": "next", "title": "What I would do next, and differently", "blocks": [
+          {"t": "ul", "items": ["Next: [[P95 Next step || installment plan previews]]", "Differently: [[P96 Honest reflection || I would show a live checkout preview earlier in the process.]]"]}
+        ]}
+      ]
+    },
+    {
+      "slug": "access-design-system",
+      "num": "04",
+      "title": "Secure access and the design system",
+      "card": "One accessible foundation for every screen, and a sign-in that is secure without being hostile.",
+      "headline": "One consistent, accessible foundation for every screen. [[P46 Outcome headline || One consistent, accessible foundation for 120 screens.]]",
+      "facts": [
+        ["My role", "Senior Product Designer · [[P97 Lead, collaborating or sole designer on this study || Lead designer]]"],
+        ["Team", "Product manager, developers, [[P48 Security partners, if any || the security team]]"],
+        ["Timeline", "Built alongside every other study, [[P1 over XX months || over the full 12 months]]"],
+        ["Scope", "Sign-in, enrollment, verification, error messaging, component library, documentation"]
+      ],
+      "metrics": [
+        {"label": "Components", "value": "[[P50 XX components || 64 components]]", "how": "Figma library"},
+        {"label": "Screens using the system", "value": "[[P52 XX screens || 120 screens]]", "how": "Figma library analytics"},
+        {"label": "Build benefit", "value": "[[P53 XX% faster or XX fewer bugs || 40% faster builds]]", "how": "Developer estimates, QA"}
+      ],
+      "sections": [
+        {"id": "access", "title": "Part 1: Sign-in and enrollment", "blocks": [
+          {"t": "p", "x": "Sign-in had to be secure without frustrating merchants who are not technical. Enrollment had two audiences: people new to Moneris and people who already had an account."},
+          {"t": "image", "label": "Sign-in and enrollment", "figma": "Figma MD2 · nodes 5:252698 (SSO login) and 5:252869 (mobile journey diverter)", "note": "Show the login, the verification step and the new vs existing customer diverter."},
+          {"t": "decisions", "items": [
+            {"title": "A focused login", "chosen": "One clear primary action, with Forgot your password and Create an account visible without hunting.", "why": "People arrive stressed when they are locked out.", "cost": "Less room for announcements."},
+            {"title": "A verification code with Remember my device", "chosen": "Merchants confirm with a code, and can choose to remember the device.", "why": "[[P47 Why you balanced it this way || it balances security with convenience for merchants who sign in daily]]", "cost": "[[P48 Who agreed to the trade-off, e.g. 'security team and PM' || the security team and the product manager]]"},
+            {"title": "A new vs existing customer diverter on mobile", "chosen": "The mobile journey splits at the start.", "why": "People should not fill in a form meant for someone else.", "cost": "One extra choice up front."},
+            {"title": "Errors that say how to fix the problem", "chosen": "[[P49 Your error message approach, e.g. 'a specific message plus the next step' || a specific message plus the next step to fix it]]", "why": "Vague errors create support calls.", "cost": "More copy to write and maintain."}
+          ]}
+        ]},
+        {"id": "system", "title": "Part 2: The design system", "blocks": [
+          {"t": "p", "x": "No shared system existed, so each page reinvented buttons, tables and filters. I built the system as I redesigned screens, so every component was proven in a real flow before it was documented."},
+          {"t": "image", "label": "Component library with states", "figma": "Figma · component library (default, hover, selected, focused)", "note": "Show a grid of key components with their states."},
+          {"t": "ul", "items": [
+            "Components with documented states: default, hover, selected and focused",
+            "A shared header, navigation and layout structure used by every page",
+            "Table, filter, date range and modal patterns that came out of the reports work",
+            "Accessibility rules built into each component rather than added later"
+          ]},
+          {"t": "p", "x": "How I got developers to adopt it: [[P51 Your real story, e.g. 'workshops, documentation, build reviews' || workshops, written documentation and build reviews]]"}
+        ]},
+        {"id": "results", "title": "Results", "blocks": [
+          {"t": "p", "x": "[[P53 Measured benefit with the number and source || New screens were built about 40% faster, estimated by developers comparing similar pages before and after.]]"}
+        ]},
+        {"id": "next", "title": "What I would do next", "blocks": [
+          {"t": "ul", "items": ["Next: [[P54 e.g. 'design tokens for theming, a contribution process, automated accessibility checks' || design tokens for theming, a contribution process and automated accessibility checks]]"]}
+        ]}
+      ]
+    }
+  ]
+}

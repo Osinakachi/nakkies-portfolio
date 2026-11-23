@@ -1,0 +1,11 @@
+{
+  "name": "nakkies-portfolio",
+  "main": "_worker.js",
+  "compatibility_date": "2026-11-01",
+  "assets": {
+    "directory": ".",
+    "binding": "ASSETS",
+    "run_worker_first": ["/api/*", "/moneris*"],
+    "not_found_handling": "404-page"
+  }
+}

@@ -44,6 +44,38 @@
       });
   }, true);
 
+  // Case study unlock form.
+  var uf = document.querySelector('form[data-unlock]');
+  if (uf) {
+    uf.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var err = uf.querySelector('.nk-form-error');
+      var btn = uf.querySelector('[type="submit"]');
+      err.hidden = true;
+      btn.disabled = true;
+      fetch('/api/unlock', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ password: uf.elements.password.value })
+      })
+        .then(function (r) { return r.json().then(function (j) { return { r: r, j: j }; }); })
+        .then(function (x) {
+          if (x.r.ok && x.j.ok) {
+            // Reload the page that was asked for; the cookie now lets it through.
+            if (/^\/moneris/i.test(location.pathname)) location.reload();
+            else location.href = '/moneris';
+          } else {
+            err.textContent = x.j.error === 'not_configured'
+              ? 'Access is not set up yet. Please try again later.'
+              : 'That password did not work. Try again or request access below.';
+            err.hidden = false;
+            btn.disabled = false;
+          }
+        })
+        .catch(function () { err.hidden = false; btn.disabled = false; });
+    });
+  }
+
   // Blog: filter posts by category.
   var chips = document.querySelectorAll('[data-filter]');
   if (chips.length) {
