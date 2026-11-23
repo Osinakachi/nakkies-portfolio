@@ -1,0 +1,8 @@
+{
+  "products": [
+    {"name": "Portfolio Template", "price": "$29", "image": "67eb42a9d1e480fba37f4d64_prj1.jpg"},
+    {"name": "UI Icon Set", "price": "$19", "image": "67eb42a9d1e480fba37f4d65_prj2.jpg"},
+    {"name": "Poster Print", "price": "$45", "image": "67eb42a9d1e480fba37f4d63_Prjcs.jpg"},
+    {"name": "Brand Guidelines Kit", "price": "$59", "image": "67eb42a9d1e480fba37f4d3a_pr4.jpg"}
+  ]
+}

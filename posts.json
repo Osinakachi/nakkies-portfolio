@@ -1,0 +1,13 @@
+{
+  "posts": [
+    {"slug": "easy-web-ux-7-essential-tips", "title": "Easy Web UX: 7 Essential Tips", "category": "Culture", "minutes": 7},
+    {"slug": "optimize-website-7-usability-hacks", "title": "Optimize Website: 7 Usability Hacks", "category": "Design", "minutes": 11},
+    {"slug": "easy-ux-7-essential-tips", "title": "Easy UX: 7 Essential Tips", "category": "Tech", "minutes": 10},
+    {"slug": "better-web-5-essential-tips", "title": "Better Web: 5 Essential Tips", "category": "Design", "minutes": 4},
+    {"slug": "upgrade-your-website", "title": "Upgrade Your Website", "category": "Culture", "minutes": 10}
+  ],
+  "placeholder_body": [
+    "This post is a placeholder. Replace this text with your article.",
+    "Edit the post in data/posts.json and run python3 tools/build.py, or edit this HTML file directly."
+  ]
+}

@@ -1,0 +1,494 @@
+/*
+  Styles for pages beyond Home. Loaded after the Webflow stylesheet.
+  Everything is sized in em, like the Webflow CSS: the body font size is fluid,
+  so these pages scale with the viewport the same way Home does.
+  Tokens from Home: black #000, white, gray #8c8c8c, lilac #a299ff, Poppins.
+*/
+
+:root {
+  --nk-line: #2a2a2a;
+  --nk-gray: #8c8c8c;
+  --nk-lilac: #a299ff;
+  --nk-radius: 2.4em;
+}
+
+/* ---------- layout shell ---------- */
+.nk-main {
+  position: relative;
+  z-index: 3; /* sits above the sticky footer so the footer reveals on scroll, as on Home */
+  min-height: 100vh;
+  padding: 2.5em 8.33vw 5em;
+  background: #000;
+  color: #fff;
+}
+
+.nk-title {
+  margin: 0;
+  font-size: 8em;
+  font-weight: 500;
+  line-height: 1.05;
+  letter-spacing: -.01em;
+  text-transform: uppercase;
+}
+
+.nk-title.is-small {
+  font-size: 5em;
+}
+
+.nk-lede {
+  max-width: 21em;
+  margin: 1em 0 0;
+  color: var(--nk-gray);
+  font-size: max(.76em, 14px);
+  line-height: 1.5;
+}
+
+.nk-back {
+  display: inline-block;
+  margin-bottom: 2em;
+  color: var(--nk-gray);
+  font-size: max(.62em, 12px);
+  text-decoration: none;
+}
+
+.nk-back:hover { color: #fff; }
+
+.nk-main a:focus-visible,
+.nk-main button:focus-visible,
+.nk-main input:focus-visible,
+.nk-main textarea:focus-visible {
+  outline: 2px solid var(--nk-lilac);
+  outline-offset: 4px;
+}
+
+/* ---------- work ---------- */
+.nk-projects {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 4em 5vw;
+  margin: 3.5em 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.nk-projects > li:nth-child(even) { margin-top: 6em; }
+
+.nk-project-link {
+  display: block;
+  color: inherit;
+  text-decoration: none;
+}
+
+.nk-project-img {
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  border-radius: var(--nk-radius);
+  box-shadow: 0 0 250px #0003;
+}
+
+.nk-project-img img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform .7s cubic-bezier(.2, .7, .2, 1);
+}
+
+.nk-project-link:hover img { transform: scale(1.06); }
+
+.nk-project-name {
+  margin: .5em 0 0;
+  font-size: max(1.6em, 20px);
+  font-weight: 500;
+  line-height: 1.15;
+  text-transform: uppercase;
+}
+
+.nk-project-tags {
+  max-width: 24em;
+  margin: .5em 0 0;
+  color: var(--nk-gray);
+  font-size: max(.62em, 12px);
+  line-height: 1.5;
+}
+
+/* ---------- project detail ---------- */
+.nk-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .5em;
+  margin: 1.4em 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.nk-tags li {
+  padding: .35em 1em;
+  border: 1px solid #444;
+  border-radius: 5em;
+  font-size: max(.56em, 12px);
+}
+
+.nk-detail-img {
+  aspect-ratio: 16 / 10;
+  margin: 2.4em 0;
+  overflow: hidden;
+  border-radius: var(--nk-radius);
+}
+
+.nk-detail-img img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.nk-prose {
+  max-width: 26em;
+  color: #cfcfcf;
+  font-size: max(.76em, 15px);
+  line-height: 1.7;
+}
+
+.nk-prose p { margin: 0 0 1em; }
+
+.nk-next {
+  display: block;
+  margin-top: 4em;
+  padding-top: 1.6em;
+  border-top: 1px solid var(--nk-line);
+  color: #fff;
+  text-decoration: none;
+}
+
+.nk-next small {
+  display: block;
+  color: var(--nk-gray);
+  font-size: max(.56em, 12px);
+}
+
+.nk-next strong {
+  display: block;
+  margin-top: .2em;
+  font-size: max(2.4em, 24px);
+  font-weight: 500;
+  line-height: 1.1;
+  text-transform: uppercase;
+  transition: transform .4s cubic-bezier(.2, .7, .2, 1), color .3s;
+}
+
+.nk-next:hover strong { color: var(--nk-lilac); transform: translateX(.2em); }
+
+/* ---------- about ---------- */
+.nk-about-hero {
+  display: grid;
+  grid-template-columns: 9.5em 1fr;
+  gap: 3em;
+  align-items: start;
+  margin-top: 1.6em;
+}
+
+.nk-main .nk-portrait {
+  width: 9.5em;
+  height: 9.5em;
+  position: sticky;
+  top: 2em;
+}
+
+.nk-statement {
+  max-width: 22em;
+  margin: 0;
+  color: var(--nk-gray);
+  font-size: max(1.7em, 17px);
+  line-height: 1.35;
+}
+
+.nk-statement .pop { color: #fff; }
+
+.nk-section-title {
+  margin: 4.5em 0 0;
+  font-size: max(.76em, 13px);
+  font-weight: 400;
+  color: var(--nk-gray);
+}
+
+.nk-list {
+  margin: .8em 0 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid var(--nk-line);
+}
+
+.nk-list li {
+  padding: .1em 0;
+  border-bottom: 1px solid var(--nk-line);
+  font-size: max(3.54em, 26px);
+  font-weight: 500;
+  line-height: 1.2;
+}
+
+.nk-cta {
+  display: block;
+  margin-top: 5em;
+  color: #fff;
+  text-decoration: none;
+}
+
+.nk-cta small {
+  display: block;
+  margin-bottom: .4em;
+  color: var(--nk-gray);
+  font-size: max(.62em, 12px);
+}
+
+.nk-cta .purple-gradient {
+  font-size: max(3.8em, 34px);
+  font-weight: 500;
+  transition: transform .4s cubic-bezier(.2, .7, .2, 1);
+}
+
+.nk-cta:hover .purple-gradient { transform: translateX(.15em); }
+
+/* ---------- contact ---------- */
+.nk-contact-grid {
+  display: grid;
+  grid-template-columns: 1.25fr 1fr;
+  gap: 5vw;
+  margin-top: 3.5em;
+  align-items: start;
+}
+
+.nk-mail {
+  display: inline-block;
+  margin: 0 0 .5em;
+  font-size: max(.98em, 16px);
+  font-weight: 400;
+  line-height: 1.2;
+  overflow-wrap: anywhere;
+  text-decoration: none;
+}
+
+.nk-info-note {
+  margin: 0;
+  color: var(--nk-gray);
+  font-size: max(.62em, 12px);
+}
+
+.nk-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .4em 1.6em;
+  margin: 2.4em 0 0;
+  padding: 0;
+  list-style: none;
+  font-size: max(.76em, 14px);
+}
+
+.nk-links a { color: #fff; text-decoration: none; border-bottom: 1px solid #555; }
+.nk-links a:hover { border-color: #fff; }
+
+.nk-form { margin: 0; }
+
+.nk-field { display: block; margin: 0 0 1.8em; }
+
+.nk-field span {
+  display: block;
+  margin-bottom: .2em;
+  color: var(--nk-gray);
+  font-size: max(.56em, 12px);
+}
+
+.nk-field input,
+.nk-field textarea {
+  display: block;
+  width: 100%;
+  margin: 0;
+  padding: .3em 0 .5em;
+  border: 0;
+  border-bottom: 1px solid #999;
+  border-radius: 0;
+  background: transparent;
+  color: #fff;
+  font: inherit;
+  font-size: max(.76em, 16px);
+}
+
+.nk-field textarea { min-height: 6em; resize: vertical; }
+
+.nk-field input:focus,
+.nk-field textarea:focus { border-bottom-color: var(--nk-lilac); }
+
+.nk-btn {
+  display: inline-block;
+  padding: .85em 1.9em;
+  border: 0;
+  border-radius: 5em;
+  background: #fff;
+  color: #000;
+  font: inherit;
+  font-size: max(.62em, 13px);
+  font-weight: 500;
+  line-height: 1;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color .25s, transform .25s;
+}
+
+.nk-btn:hover { background: var(--nk-lilac); }
+.nk-btn:disabled { opacity: .6; cursor: default; }
+
+/* Webflow's default form messages are grey boxes meant for light pages. */
+.w-form-done,
+.w-form-fail {
+  margin-top: 1.4em;
+  padding: 1em 1.4em;
+  border: 1px solid #444;
+  border-radius: 1.5em;
+  background: transparent;
+  color: #fff;
+  font-size: max(.62em, 13px);
+  text-align: left;
+}
+
+.w-form-fail { border-color: #c4455b; }
+
+.nk-page-contact .footer-form-container { display: none; }
+
+/* ---------- blog ---------- */
+.nk-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .5em;
+  margin: 2.4em 0 0;
+}
+
+.nk-chip {
+  padding: .55em 1.3em;
+  border: 1px solid #444;
+  border-radius: 5em;
+  background: transparent;
+  color: #fff;
+  font: inherit;
+  font-size: max(.56em, 12px);
+  cursor: pointer;
+  transition: background-color .25s, color .25s, border-color .25s;
+}
+
+.nk-chip:hover { border-color: #fff; }
+.nk-chip[aria-pressed="true"] { background: #fff; border-color: #fff; color: #000; }
+
+.nk-posts {
+  margin: 2.6em 0 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid var(--nk-line);
+}
+
+.nk-posts li[hidden] { display: none; }
+
+.nk-post {
+  display: grid;
+  grid-template-columns: 7em 1fr auto;
+  gap: 2em;
+  align-items: baseline;
+  padding: 1em 0;
+  border-bottom: 1px solid var(--nk-line);
+  color: #fff;
+  text-decoration: none;
+}
+
+.nk-post h2 {
+  margin: 0;
+  font-size: max(1.6em, 18px);
+  font-weight: 500;
+  line-height: 1.2;
+  transition: transform .4s cubic-bezier(.2, .7, .2, 1), color .3s;
+}
+
+.nk-post:hover h2 { color: var(--nk-lilac); transform: translateX(.2em); }
+
+.nk-post-time,
+.nk-post-cat { color: var(--nk-gray); font-size: max(.62em, 12px); }
+
+/* ---------- shop ---------- */
+.nk-products {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 3em 2vw;
+  margin: 3.5em 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.nk-product-img {
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  border-radius: 1.5em;
+  background: #111;
+}
+
+.nk-product-img img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.nk-product h2 {
+  margin: .7em 0 0;
+  font-size: max(.9em, 15px);
+  font-weight: 500;
+  line-height: 1.2;
+}
+
+.nk-price { margin: .2em 0 .9em; color: var(--nk-gray); font-size: max(.62em, 12px); }
+
+/* ---------- 404 ---------- */
+.nk-404 {
+  display: flex;
+  min-height: 60vh;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.nk-404 .purple-gradient { font-size: 12em; font-weight: 500; }
+.nk-404 p { margin: .4em 0 1.6em; color: var(--nk-gray); font-size: max(.76em, 15px); }
+
+/* ---------- footer ---------- */
+/* The footer address is much longer than the template's placeholder. */
+.footer .ft {
+  font-size: 3.6vw;
+  overflow-wrap: anywhere;
+}
+
+/* ---------- responsive ---------- */
+@media screen and (max-width: 991px) {
+  .nk-products { grid-template-columns: repeat(2, 1fr); }
+  .nk-contact-grid { grid-template-columns: 1fr; gap: 3em; }
+}
+
+@media screen and (max-width: 767px) {
+  .nk-list li { font-size: max(2.4em, 22px); }
+  .nk-projects { grid-template-columns: 1fr; }
+  .nk-projects > li:nth-child(even) { margin-top: 0; }
+  .nk-about-hero { grid-template-columns: 1fr; gap: 1.6em; }
+  .nk-main .nk-portrait { position: static; }
+  .nk-post { grid-template-columns: 1fr auto; gap: .4em 1em; }
+  .nk-post-time { grid-column: 1 / -1; }
+  .nk-404 .purple-gradient { font-size: 8em; }
+}
+
+@media screen and (max-width: 479px) {
+  .footer .ft { font-size: 4.6vw; }
+  .nk-products { grid-template-columns: 1fr; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nk-project-img img,
+  .nk-post h2,
+  .nk-next strong,
+  .nk-cta .purple-gradient,
+  .nk-btn { transition: none; }
+  .nk-project-link:hover img { transform: none; }
+}

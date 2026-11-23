@@ -1,0 +1,9 @@
+{
+  "tags": ["Product Design", "UIUX Design", "Branding", "Visual Design", "Art Direction", "Concept Design for Spotify"],
+  "projects": [
+    {"slug": "01-project-name", "title": "Project Name", "image": "67eb42a9d1e480fba37f4d64_prj1.jpg", "description": "Project details coming soon. Add the brief, your role, the process and the results here."},
+    {"slug": "02-project-name", "title": "Project Name", "image": "67eb42a9d1e480fba37f4d65_prj2.jpg", "description": "Project details coming soon. Add the brief, your role, the process and the results here."},
+    {"slug": "03-project-name", "title": "Project Name", "image": "67eb42a9d1e480fba37f4d63_Prjcs.jpg", "description": "Project details coming soon. Add the brief, your role, the process and the results here."},
+    {"slug": "04-project-name", "title": "Project Name", "image": "67eb42a9d1e480fba37f4d3a_pr4.jpg", "description": "Project details coming soon. Add the brief, your role, the process and the results here."}
+  ]
+}
