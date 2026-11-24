@@ -1,0 +1,28 @@
+{
+  "statement_pop": "Senior product designer with 8+ years of experience,",
+  "statement_rest": "turning complex payments workflows into simple, accessible products that merchants trust.",
+  "intro": [
+    "I design software for people who have to get things right under pressure. At Moneris, I work on the Go portal, the place merchants of every size go to see their sales, take payments, resolve problems and manage their accounts.",
+    "I started in graphic design and moved into UX and product design, which is why I care about both how something looks and whether it works. My process is research first, then design in the open: I test with real merchants, document the trade-offs, and build shared components so each screen is faster and more consistent than the last.",
+    "I hold a Master of Digital Experience Innovation from the University of Waterloo. I live in Canada and work with teams across product, analytics and engineering."
+  ],
+  "what_i_do": [
+    ["Product design", "End-to-end design of complex payments and reporting workflows, from first sketch to developer handoff."],
+    ["UX research", "Usability testing on usertesting.com, interviews with clients, support-ticket analysis and journey mapping."],
+    ["Design systems", "Component libraries with documented states, built into real screens so teams adopt them."],
+    ["Accessibility", "Designing to WCAG 2.1 AA: contrast, keyboard order, labels and errors that do not rely on colour."],
+    ["Prototyping and handoff", "Interactive prototypes, specs and build reviews so what ships matches what was designed."],
+    ["Fintech and payments", "Invoicing, virtual terminals, recurring billing, stored cards, installments and fraud tools."]
+  ],
+  "experience": [
+    {"when": "Nov 2021 to present", "role": "Senior Product Designer", "org": "Moneris", "text": "Design across the Go portal: reports, transaction details, fraud detection, invoicing, Virtual Terminal, recurring payments, Vault, Visa Installments, terminal settings, sign-in and a shared design system. Lead designer on some features, collaborating with other designers on others, and sole designer on the rest."}
+  ],
+  "education": [
+    {"when": "University of Waterloo", "role": "Master of Digital Experience Innovation", "text": "Graduated with a 4.0 GPA."}
+  ],
+  "recognition": [
+    {"when": "2019", "role": "First prize", "text": "#FusionBig10 logo contest."}
+  ],
+  "toolkit": ["Figma", "FigJam", "usertesting.com", "Prototyping", "Design systems", "WCAG 2.1 AA", "UX research", "Journey mapping", "Specs and handoff"],
+  "links": {"linkedin": "https://www.linkedin.com/in/osinakachi-anyachebelu", "behance": "https://www.behance.net/osinakaanyache"}
+}

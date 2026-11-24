@@ -76,6 +76,30 @@
     });
   }
 
+  // Home: the project titles are animated by scroll and all share one trigger, so a title
+  // can be left parked on screen after its project has passed. Show each title only
+  // while its own project is on screen, and hide all of them once the Work section ends.
+  var work = document.querySelector('section.projects');
+  if (work) {
+    var items = [].slice.call(work.querySelectorAll('.project-container')).map(function (c) {
+      return { box: c, labels: c.querySelectorAll('.project-name, .project-summary') };
+    });
+    var ticking = false;
+    var sync = function () {
+      ticking = false;
+      var vh = window.innerHeight;
+      items.forEach(function (it) {
+        var r = it.box.getBoundingClientRect();
+        var on = r.top < vh && r.bottom > vh * 0.72;
+        it.labels.forEach(function (el) { el.style.visibility = on ? '' : 'hidden'; });
+      });
+    };
+    var queue = function () { if (!ticking) { ticking = true; requestAnimationFrame(sync); } };
+    window.addEventListener('scroll', queue, { passive: true });
+    window.addEventListener('resize', queue);
+    sync();
+  }
+
   // Blog: filter posts by category.
   var chips = document.querySelectorAll('[data-filter]');
   if (chips.length) {

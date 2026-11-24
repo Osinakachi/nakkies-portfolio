@@ -1,9 +1,28 @@
 {
-  "tags": ["Product Design", "UIUX Design", "Branding", "Visual Design", "Art Direction", "Concept Design for Spotify"],
   "projects": [
-    {"slug": "01-project-name", "title": "Project Name", "image": "67eb42a9d1e480fba37f4d64_prj1.jpg", "description": "Project details coming soon. Add the brief, your role, the process and the results here."},
-    {"slug": "02-project-name", "title": "Project Name", "image": "67eb42a9d1e480fba37f4d65_prj2.jpg", "description": "Project details coming soon. Add the brief, your role, the process and the results here."},
-    {"slug": "03-project-name", "title": "Project Name", "image": "67eb42a9d1e480fba37f4d63_Prjcs.jpg", "description": "Project details coming soon. Add the brief, your role, the process and the results here."},
-    {"slug": "04-project-name", "title": "Project Name", "image": "67eb42a9d1e480fba37f4d3a_pr4.jpg", "description": "Project details coming soon. Add the brief, your role, the process and the results here."}
+    {"slug": "reporting", "num": "01", "title": "Reports, Transaction Details and Fraud Detection", "cover": "cover-reports.jpg",
+     "tags": ["Product Design", "UX Research", "Data Tables", "Accessibility"],
+     "summary": "Helping merchants answer “how much did I sell?” and “what happened to this payment?” on one screen.",
+     "scope": ["Sales Summary report with monthly and daily views", "Transaction details: full page vs modal", "Fraud detection report builder"],
+     "inside": ["The research behind the filter-first report", "Why I designed two options for transaction details and how I chose", "How plain-language rules make fraud tools usable"],
+     "moneris": "moneris-reporting"},
+    {"slug": "invoicing-virtual-terminal", "num": "02", "title": "Invoicing and Virtual Terminal", "cover": "cover-invoicing.jpg",
+     "tags": ["Product Design", "Payments", "Forms", "Accessibility"],
+     "summary": "Taking payments by invoice or by phone, without needing payments expertise.",
+     "scope": ["Invoice creation and tracking", "Virtual Terminal payment entry", "Card data validation and confirmation states"],
+     "inside": ["Designing for people who use a flow only a few times a month", "How inline validation prevents declined payments", "Keeping sensitive card data masked everywhere"],
+     "moneris": "moneris-invoicing-virtual-terminal"},
+    {"slug": "recurring-vault-installments", "num": "03", "title": "Recurring Payments, Vault and Visa Installments", "cover": "cover-recurring.jpg",
+     "tags": ["Product Design", "Settings", "Payments", "Accessibility"],
+     "summary": "Making stored cards, repeat billing and installment plans easy to set up and safe to change.",
+     "scope": ["Vault (stored cards)", "Recurring payments and Dynamic Currency Conversion", "Visa Installments and terminal settings"],
+     "inside": ["Explaining what a setting does inside the setting", "Protecting merchants from losing changes that touch every device", "Showing saved cards without exposing them"],
+     "moneris": "moneris-recurring-vault-installments"},
+    {"slug": "access-design-system", "num": "04", "title": "Secure Access and the Design System", "cover": "cover-access.jpg",
+     "tags": ["Design Systems", "Accessibility", "Security UX", "Handoff"],
+     "summary": "One accessible foundation for every screen, and a sign-in that is secure without being hostile.",
+     "scope": ["Sign-in, enrollment and verification", "Error messaging", "Component library and documentation"],
+     "inside": ["Balancing security and convenience with Remember my device", "A component library built from real screens", "How I got developers to adopt it"],
+     "moneris": "moneris-access-design-system"}
   ]
 }

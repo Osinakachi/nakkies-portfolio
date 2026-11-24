@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
 """
-Generates the pages other than Home: work, about, contact, blog, shop, 404,
-project-<slug>.html and post-<slug>.html.
+Generates the pages other than Home: work, about, contact, 404,
+project-<slug>.html (public teasers) and the password-protected moneris*.html pages.
 
 Run from this folder:   python3 build.py
 
 The navbar, footer and scripts are copied from index.html, so
 change them there first, then re-run this script to update every page.
-Content comes from projects.json, posts.json and products.json. Home (index.html) is edited by hand.
+Content comes from projects.json, profile.json and moneris.json. Home (index.html) is edited by hand.
 """
 import html
 import json
@@ -70,26 +70,23 @@ def img(name):
 
 # ------------------------------------------------------------------ data
 pd = load("projects.json")
-projects, tags = pd["projects"], pd["tags"]
-posts_data = load("posts.json")
-posts, post_body = posts_data["posts"], posts_data["placeholder_body"]
-products = load("products.json")["products"]
-tag_line = ", ".join(tags)
+projects = pd["projects"]
+PROFILE = load("profile.json")
+MON = load("moneris.json")
+LINKEDIN = PROFILE["links"]["linkedin"]
+BEHANCE = PROFILE["links"]["behance"]
+SITE_TITLE = "Nakkie A. | Senior Product Designer"
+HP = (
+    '<input type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true" '
+    'style="position:absolute;left:-9999px;opacity:0;height:0;width:0">'
+)
 
 # ------------------------------------------------------------------ work
-MON = load("moneris.json")
-locked_card = (
-    '<li><a class="nk-project-link nk-locked" href="/moneris">'
-    '<div class="nk-project-img nk-lockbox"><span class="nk-lock-badge">Password protected</span>'
-    f'<strong>{E(MON["meta"]["company"])} {E(MON["meta"]["product"])}</strong></div>'
-    f'<h2 class="nk-project-name">{E(MON["meta"]["company"])} {E(MON["meta"]["product"])} redesign</h2>'
-    '<p class="nk-project-tags">Product design, Design systems, Research, Accessibility</p></a></li>'
-)
-cards = locked_card + "".join(
+cards = "".join(
     f'<li><a class="nk-project-link" href="/project-{p["slug"]}">'
-    f'<div class="nk-project-img"><img src="{img(p["image"])}" alt="{E(p["title"])} cover" loading="lazy"></div>'
+    f'<div class="nk-project-img"><img src="{img(p["cover"])}" alt="{E(p["title"])} cover" loading="lazy"></div>'
     f'<h2 class="nk-project-name">{E(p["title"])}</h2>'
-    f'<p class="nk-project-tags">{E(tag_line)}</p></a></li>'
+    f'<p class="nk-project-tags">{E(", ".join(p["tags"]))}</p></a></li>'
     for p in projects
 )
 write(
@@ -97,75 +94,102 @@ write(
     page(
         "work",
         f"Work | {SITE}",
-        "Selected work in product design, UI/UX, branding, visual design and art direction.",
+        "Case studies from the Moneris Go portal redesign: reports, invoicing, Virtual Terminal, recurring payments, Vault and a design system.",
         '<h1 class="nk-title">Work</h1>'
-        '<p class="nk-lede">Product design, UI/UX, branding, visual design and art direction.</p>'
+        '<p class="nk-lede">Four case studies from redesigning the Moneris Go portal. The full write-ups are password protected; '
+        'each project page shows what is inside. <a class="nk-inline" href="/contact">Request the password</a>.</p>'
         f'<ul class="nk-projects">{cards}</ul>',
     ),
 )
 
-# project detail pages
 for i, p in enumerate(projects):
     nxt = projects[(i + 1) % len(projects)]
-    chips = "".join(f"<li>{E(t)}</li>" for t in tags)
+    chips = "".join(f"<li>{E(t)}</li>" for t in p["tags"])
+    scope = "".join(f"<li>{E(t)}</li>" for t in p["scope"])
+    inside = "".join(f"<li>{E(t)}</li>" for t in p["inside"])
     write(
         f"project-{p['slug']}.html",
         page(
             "project",
             f"{p['title']} | {SITE}",
-            p["description"],
+            p["summary"],
             '<a class="nk-back" href="/work">Back to work</a>'
+            f'<p class="nk-eyebrow">Case study {p["num"]} · Moneris Go portal</p>'
             f'<h1 class="nk-title is-small">{E(p["title"])}</h1>'
             f'<ul class="nk-tags">{chips}</ul>'
-            f'<div class="nk-detail-img"><img src="{img(p["image"])}" alt="{E(p["title"])} cover"></div>'
-            f'<div class="nk-prose"><p>{E(p["description"])}</p></div>'
+            f'<div class="nk-detail-img is-cover"><img src="{img(p["cover"])}" alt="{E(p["title"])} cover"></div>'
+            '<div class="nk-teaser">'
+            f'<p class="nk-cs-headline">{E(p["summary"])}</p>'
+            '<dl class="nk-facts"><div><dt>Company</dt><dd>Moneris</dd></div>'
+            '<div><dt>My role</dt><dd>Senior Product Designer</dd></div>'
+            '<div><dt>Methods</dt><dd>Usability testing, client interviews, support-ticket analysis, prototyping, WCAG 2.1 AA review</dd></div></dl>'
+            f'<h2 class="nk-section-title">What I worked on</h2><ul class="nk-bullets">{scope}</ul>'
+            f'<h2 class="nk-section-title">What you will see in the case study</h2><ul class="nk-bullets">{inside}</ul>'
+            '<div class="nk-lockcta"><div><strong>Password protected</strong>'
+            "<p>This work is under confidentiality. If you have the password, read the full case study. If not, ask for it.</p></div>"
+            f'<div class="nk-lockcta-actions"><a class="nk-btn" href="/{p["moneris"]}">Read the case study</a>'
+            '<a class="nk-btn is-ghost" href="/contact">Request the password</a></div></div></div>'
             f'<a class="nk-next" href="/project-{nxt["slug"]}"><small>Next project</small>'
             f'<strong>{E(nxt["title"])}</strong></a>',
         ),
     )
 
 # ------------------------------------------------------------------ about
-disciplines = "".join(f"<li>{E(t)}</li>" for t in tags[:5])
+def timeline(items):
+    return '<ul class="nk-timeline">' + "".join(
+        f'<li><span class="nk-tl-when">{E(x["when"])}</span><div><h3>{E(x["role"])}'
+        + (f' <small>{E(x["org"])}</small>' if x.get("org") else "")
+        + f'</h3><p>{E(x["text"])}</p></div></li>' for x in items) + "</ul>"
+
+
+what = "".join(f'<li><h3>{E(a)}</h3><p>{E(b)}</p></li>' for a, b in PROFILE["what_i_do"])
+tools = "".join(f"<li>{E(t)}</li>" for t in PROFILE["toolkit"])
+intro = "".join(f"<p>{E(t)}</p>" for t in PROFILE["intro"])
 write(
     "about.html",
     page(
         "about",
         f"About | {SITE}",
-        "Art director and designer with 8+ years of experience, based in Canada.",
+        "Senior product designer with 8+ years of experience, designing payments products at Moneris. Master of Digital Experience Innovation, University of Waterloo.",
         '<h1 class="nk-title">About</h1>'
         '<div class="nk-about-hero">'
         f'<div class="about-image-border nk-portrait"><img src="{img("67eb5067b095ffb7f4e632be_IMG_6031.JPGk.jpg")}" '
         'alt="Portrait of Nakkie A." class="about-image"></div>'
-        '<p class="nk-statement"><span class="pop">Art Director &amp; Designer</span> with 8+ years of expertise, '
-        'creating beautiful and functional designs with a keen eye for detail and dedication to the latest '
-        "trends and technologies.</p></div>"
+        f'<p class="nk-statement"><span class="pop">{E(PROFILE["statement_pop"])}</span> {E(PROFILE["statement_rest"])}</p></div>'
+        f'<div class="nk-prose nk-about-intro">{intro}</div>'
         '<h2 class="nk-section-title">What I do</h2>'
-        f'<ul class="nk-list">{disciplines}</ul>'
-        '<a class="nk-cta" href="/contact"><small>Have a project in mind?</small>'
+        f'<ul class="nk-what">{what}</ul>'
+        '<h2 class="nk-section-title">Experience</h2>'
+        f'{timeline(PROFILE["experience"])}'
+        '<h2 class="nk-section-title">Education</h2>'
+        f'{timeline(PROFILE["education"])}'
+        '<h2 class="nk-section-title">Recognition</h2>'
+        f'{timeline(PROFILE["recognition"])}'
+        '<h2 class="nk-section-title">Toolkit</h2>'
+        f'<ul class="nk-tags nk-toolkit">{tools}</ul>'
+        '<h2 class="nk-section-title">Elsewhere</h2>'
+        f'<ul class="nk-links"><li><a href="{LINKEDIN}" target="_blank" rel="noopener">LinkedIn</a></li>'
+        f'<li><a href="{BEHANCE}" target="_blank" rel="noopener">Behance</a></li></ul>'
+        '<a class="nk-cta" href="/contact"><small>Hiring, or have a project in mind?</small>'
         '<span class="purple-gradient large-heading upper-case">Let&rsquo;s talk</span></a>',
     ),
 )
 
 # ------------------------------------------------------------------ contact
-HP = (
-    '<input type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true" '
-    'style="position:absolute;left:-9999px;opacity:0;height:0;width:0">'
-)
 write(
     "contact.html",
     page(
         "contact",
         f"Contact | {SITE}",
-        "Get in touch about design projects. Based in Canada.",
+        "Get in touch, or request the password for the Moneris case studies.",
         '<h1 class="nk-title">Contact</h1>'
         '<div class="nk-contact-grid">'
         "<div>"
         f'<a class="purple-gradient nk-mail" href="mailto:{EMAIL}">{EMAIL}</a>'
-        '<p class="nk-info-note">Based in Canada</p>'
+        '<p class="nk-info-note">Based in Canada. Mention &ldquo;case study password&rdquo; in your message and I will send it over.</p>'
         '<ul class="nk-links">'
-        '<li><a href="https://www.linkedin.com/" target="_blank" rel="noopener">LinkedIn</a></li>'
-        '<li><a href="https://www.instagram.com/" target="_blank" rel="noopener">Instagram</a></li>'
-        '<li><a href="https://twitter.com/" target="_blank" rel="noopener">Twitter</a></li>'
+        f'<li><a href="{LINKEDIN}" target="_blank" rel="noopener">LinkedIn</a></li>'
+        f'<li><a href="{BEHANCE}" target="_blank" rel="noopener">Behance</a></li>'
         "</ul></div>"
         '<div class="w-form">'
         '<form class="nk-form" method="post" action="/api/contact" data-form="contact" aria-label="Contact form">'
@@ -177,63 +201,6 @@ write(
         '<div class="w-form-done" role="status"><div>Thanks! Your message has been sent.</div></div>'
         f'<div class="w-form-fail" role="alert"><div>Something went wrong. Please try again or email {EMAIL}.</div></div>'
         "</div></div>",
-    ),
-)
-
-# ------------------------------------------------------------------ blog
-cats = sorted({p["category"] for p in posts})
-chips = '<button type="button" class="nk-chip" data-filter="all" aria-pressed="true">All</button>' + "".join(
-    f'<button type="button" class="nk-chip" data-filter="{E(c)}" aria-pressed="false">{E(c)}</button>' for c in cats
-)
-rows = "".join(
-    f'<li data-category="{E(p["category"])}"><a class="nk-post" href="/post-{p["slug"]}">'
-    f'<span class="nk-post-time">{p["minutes"]} min read</span><h2>{E(p["title"])}</h2>'
-    f'<span class="nk-post-cat">{E(p["category"])}</span></a></li>'
-    for p in posts
-)
-write(
-    "blog.html",
-    page(
-        "blog",
-        f"Blog | {SITE}",
-        "Notes on UX, design and building better websites.",
-        '<h1 class="nk-title">Blog</h1>'
-        f'<div class="nk-chips" role="group" aria-label="Filter by category">{chips}</div>'
-        f'<ul class="nk-posts">{rows}</ul>',
-    ),
-)
-
-for p in posts:
-    body = "".join(f"<p>{E(t)}</p>" for t in post_body)
-    write(
-        f"post-{p['slug']}.html",
-        page(
-            "post",
-            f"{p['title']} | {SITE}",
-            p["title"],
-            '<a class="nk-back" href="/blog">Back to blog</a>'
-            f'<h1 class="nk-title is-small">{E(p["title"])}</h1>'
-            f'<ul class="nk-tags"><li>{E(p["category"])}</li><li>{p["minutes"]} min read</li></ul>'
-            f'<div class="nk-prose" style="margin-top:2.4em">{body}</div>',
-        ),
-    )
-
-# ------------------------------------------------------------------ shop
-items = "".join(
-    f'<li><div class="nk-product-img"><img src="{img(p["image"])}" alt="{E(p["name"])}" loading="lazy"></div>'
-    f'<h2>{E(p["name"])}</h2><p class="nk-price">{E(p["price"])}</p>'
-    f'<a class="nk-btn" href="/contact">Enquire</a></li>'
-    for p in products
-)
-write(
-    "shop.html",
-    page(
-        "shop",
-        f"Shop | {SITE}",
-        "Design resources and prints.",
-        '<h1 class="nk-title">Shop</h1>'
-        '<p class="nk-lede">Design resources and prints. To buy something, send an enquiry.</p>'
-        f'<ul class="nk-products">{items}</ul>',
     ),
 )
 
