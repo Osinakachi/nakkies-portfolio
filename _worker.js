@@ -1,18 +1,76 @@
 // Cloudflare Pages "advanced mode" worker. One file, no folders.
-// Handles the two form endpoints and serves every other request from the static files.
+// Jobs: the contact form endpoint, security headers, cache rules, redirects,
+// a deny-list for internal files, and serving every other request from the static files.
+// No secrets live here. Set RESEND_API_KEY (secret), TO_EMAIL and FROM_EMAIL (variables) in Cloudflare.
 
 const DEFAULT_TO = 'osinakachi.anyachebelu@gmail.com';
 
+// ---------------------------------------------------------------- security headers
+const CSP = [
+  "default-src 'self'",
+  "script-src 'self'",
+  "style-src 'self' 'unsafe-inline'", // Webflow animations set inline styles; scripts stay strict
+  "img-src 'self' data:",
+  "font-src 'self' data:",
+  "connect-src 'self'",
+  "form-action 'self'",
+  "base-uri 'self'",
+  "object-src 'none'",
+  "frame-ancestors 'none'"
+].join('; ');
+
+const SECURITY = {
+  'Content-Security-Policy': CSP,
+  'Strict-Transport-Security': 'max-age=31536000; includeSubDomains',
+  'X-Content-Type-Options': 'nosniff',
+  'X-Frame-Options': 'DENY',
+  'Referrer-Policy': 'strict-origin-when-cross-origin',
+  'Permissions-Policy': 'camera=(), microphone=(), geolocation=(), payment=(), usb=()',
+  'Cross-Origin-Opener-Policy': 'same-origin'
+};
+
+const cacheFor = (pathname, type) => {
+  if (/^\/(site\.[0-9a-f]{8}\.(css|js)|poppins-[^/]+\.woff2?|webflow[^/]*\.js|jquery[^/]*\.js)$/.test(pathname)) {
+    return 'public, max-age=31536000, immutable';
+  }
+  if (/^\/(robots\.txt|sitemap\.xml|llms\.txt|manifest\.webmanifest)$/.test(pathname)) return 'public, max-age=3600';
+  if (/^image\//.test(type) || /^font\//.test(type)) return 'public, max-age=86400';
+  if (/text\/html/.test(type)) return 'public, max-age=0, must-revalidate';
+  return 'public, max-age=3600';
+};
+
+function withHeaders(res, pathname, extra = {}) {
+  const h = new Headers(res.headers);
+  for (const [k, v] of Object.entries(SECURITY)) h.set(k, v);
+  const type = h.get('Content-Type') || '';
+  if (!h.has('Cache-Control') || !pathname.startsWith('/api/')) h.set('Cache-Control', cacheFor(pathname, type));
+  for (const [k, v] of Object.entries(extra)) h.set(k, v);
+  return new Response(res.body, { status: res.status, statusText: res.statusText, headers: h });
+}
+
+// ---------------------------------------------------------------- redirects and deny-list
+const SLUGS = ['reporting', 'invoicing-virtual-terminal', 'recurring-vault-installments', 'access-design-system'];
+
+function redirectFor(pathname) {
+  let m = pathname.match(/^\/project-([a-z0-9-]+)\/?$/i);
+  if (m && SLUGS.includes(m[1].toLowerCase())) return '/moneris-' + m[1].toLowerCase();
+  if (/^\/(unlock|case-studies?)\/?$/i.test(pathname)) return '/moneris';
+  if (/^\/(blog|shop|post|posts|projects?)(\/.*)?$/i.test(pathname)) return '/work';
+  if (/^\/post-[^/]+\/?$/i.test(pathname)) return '/work';
+  if (pathname === '/index.html') return '/';
+  return null;
+}
+
+const DENY = /^\/(_worker\.js|build\.py|make_assets\.py|wrangler\.jsonc|assetsignore\.txt|build-report\.txt|(site|profile|projects|moneris|fonts)\.json|home\.(template|raw)\.html|[a-z-]+\.partial\.html|.*\.md|nav_ids\.json|pages\.css|site\.js)$/i;
+
+// ---------------------------------------------------------------- forms
 const json = (body, status = 200) =>
-  new Response(JSON.stringify(body), {
-    status,
-    headers: { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' }
-  });
+  new Response(JSON.stringify(body), { status, headers: { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' } });
 
 // Only accept submissions that come from this site.
 const sameOrigin = (request) => {
   const origin = request.headers.get('Origin');
-  return !origin || origin === new URL(request.url).origin;
+  return origin === new URL(request.url).origin;
 };
 
 async function readBody(request) {
@@ -24,8 +82,20 @@ async function readBody(request) {
 const clean = (v, max) => String(v ?? '').replace(/\r/g, '').trim().slice(0, max);
 const isEmail = (v) => v.length <= 254 && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
 
+// Best-effort rate limit per visitor, per worker instance: 5 sends per 10 minutes.
+const hits = new Map();
+function limited(request) {
+  const ip = request.headers.get('CF-Connecting-IP') || 'unknown';
+  const now = Date.now();
+  const list = (hits.get(ip) || []).filter((t) => now - t < 600000);
+  if (list.length >= 5) { hits.set(ip, list); return true; }
+  list.push(now);
+  hits.set(ip, list);
+  if (hits.size > 500) hits.clear();
+  return false;
+}
+
 // Sends one email through Resend (https://resend.com).
-// Secret: RESEND_API_KEY. Optional variables: TO_EMAIL, FROM_EMAIL.
 async function sendMail(env, { subject, text, replyTo }) {
   if (!env.RESEND_API_KEY) throw new Error('RESEND_API_KEY is not set');
   const res = await fetch('https://api.resend.com/emails', {
@@ -42,7 +112,7 @@ async function sendMail(env, { subject, text, replyTo }) {
   if (!res.ok) throw new Error(`Mail provider error ${res.status}`);
 }
 
-async function handleForm(kind, request, env) {
+async function handleContact(request, env) {
   if (request.method !== 'POST') return json({ ok: false, error: 'method_not_allowed' }, 405);
   if (!sameOrigin(request)) return json({ ok: false, error: 'forbidden' }, 403);
 
@@ -52,29 +122,20 @@ async function handleForm(kind, request, env) {
   // Honeypot: real visitors never fill this field. Pretend it worked.
   if (clean(body.company, 100)) return json({ ok: true });
 
+  if (limited(request)) return json({ ok: false, error: 'too_many' }, 429);
+
   const email = clean(body.email, 254);
   if (!isEmail(email)) return json({ ok: false, error: 'invalid_email' }, 400);
+  const name = clean(body.name, 100).replace(/\n/g, ' ');
+  const message = clean(body.message, 5000);
+  if (message.length < 2) return json({ ok: false, error: 'message_required' }, 400);
 
-  let mail;
-  if (kind === 'contact') {
-    const name = clean(body.name, 100).replace(/\n/g, ' ');
-    const message = clean(body.message, 5000);
-    if (message.length < 2) return json({ ok: false, error: 'message_required' }, 400);
-    mail = {
+  try {
+    await sendMail(env, {
       subject: name ? `New message from ${name}` : 'New message from your portfolio',
       replyTo: email,
       text: `${name ? `Name: ${name}\n` : ''}Email: ${email}\n\n${message}`
-    };
-  } else {
-    mail = {
-      subject: 'New newsletter subscriber',
-      replyTo: email,
-      text: `${email} subscribed to the newsletter on your portfolio.`
-    };
-  }
-
-  try {
-    await sendMail(env, mail);
+    });
   } catch (err) {
     console.error(err.message);
     return json({ ok: false, error: 'send_failed' }, 502);
@@ -82,113 +143,30 @@ async function handleForm(kind, request, env) {
   return json({ ok: true });
 }
 
-
-// ---------------------------------------------------------------- password-protected case studies
-// Everything under /moneris (moneris.html, moneris-*.html) is only served with a valid session cookie.
-// The password is the secret CASE_STUDY_PASSWORD (Cloudflare > Variables and Secrets). It is never in the code.
-const GATED = /^\/moneris([-/.]|$)/i;
-const COOKIE = 'cs_session';
-const SESSION_SECONDS = 60 * 60 * 24 * 7; // one week
-const enc = new TextEncoder();
-
-const toHex = (buf) => [...new Uint8Array(buf)].map((b) => b.toString(16).padStart(2, '0')).join('');
-
-async function hmac(key, message) {
-  const k = await crypto.subtle.importKey('raw', enc.encode(key), { name: 'HMAC', hash: 'SHA-256' }, false, ['sign']);
-  return toHex(await crypto.subtle.sign('HMAC', k, enc.encode(message)));
-}
-
-// Compares two strings without leaking where they differ.
-async function safeEqual(a, b) {
-  const [ha, hb] = await Promise.all([
-    crypto.subtle.digest('SHA-256', enc.encode(a)),
-    crypto.subtle.digest('SHA-256', enc.encode(b))
-  ]);
-  const x = new Uint8Array(ha), y = new Uint8Array(hb);
-  let diff = 0;
-  for (let i = 0; i < x.length; i++) diff |= x[i] ^ y[i];
-  return diff === 0;
-}
-
-function getCookie(request, name) {
-  const header = request.headers.get('Cookie') || '';
-  for (const part of header.split(';')) {
-    const [k, ...v] = part.trim().split('=');
-    if (k === name) return v.join('=');
-  }
-  return '';
-}
-
-async function hasSession(request, env) {
-  if (!env.CASE_STUDY_PASSWORD) return false;
-  const value = getCookie(request, COOKIE);
-  const [exp, sig] = value.split('.');
-  if (!exp || !sig || Number(exp) < Math.floor(Date.now() / 1000)) return false;
-  return safeEqual(sig, await hmac(env.CASE_STUDY_PASSWORD, `session:${exp}`));
-}
-
-const privateHeaders = (res) => {
-  const h = new Headers(res.headers);
-  h.set('Cache-Control', 'private, no-store');
-  h.set('X-Robots-Tag', 'noindex, nofollow, noarchive');
-  return h;
-};
-
-async function fetchAsset(request, env, path) {
-  const url = new URL(request.url);
-  url.pathname = path;
-  url.search = '';
-  let res = await env.ASSETS.fetch(new Request(url, { method: 'GET' }));
-  for (let i = 0; i < 3 && res.status >= 300 && res.status < 400; i++) {
-    res = await env.ASSETS.fetch(new Request(new URL(res.headers.get('Location'), url), { method: 'GET' }));
-  }
-  return res;
-}
-
-async function handleUnlock(request, env) {
-  if (request.method !== 'POST') return json({ ok: false, error: 'method_not_allowed' }, 405);
-  if (!sameOrigin(request)) return json({ ok: false, error: 'forbidden' }, 403);
-  if (!env.CASE_STUDY_PASSWORD) return json({ ok: false, error: 'not_configured' }, 503);
-
-  let body;
-  try { body = await readBody(request); } catch { return json({ ok: false, error: 'bad_request' }, 400); }
-
-  // Not case-sensitive, so NAKKIE, nakkie and Nakkie all work.
-  const norm = (v) => String(v ?? '').trim().toUpperCase().slice(0, 200);
-  const ok = await safeEqual(norm(body.password), norm(env.CASE_STUDY_PASSWORD));
-  if (!ok) {
-    await new Promise((r) => setTimeout(r, 800)); // slows down guessing
-    return json({ ok: false, error: 'wrong_password' }, 401);
-  }
-  const exp = Math.floor(Date.now() / 1000) + SESSION_SECONDS;
-  const sig = await hmac(env.CASE_STUDY_PASSWORD, `session:${exp}`);
-  const res = json({ ok: true });
-  res.headers.append(
-    'Set-Cookie',
-    `${COOKIE}=${exp}.${sig}; Max-Age=${SESSION_SECONDS}; Path=/; HttpOnly; Secure; SameSite=Lax`
-  );
-  return res;
-}
-
-async function handleGated(request, env) {
-  if (await hasSession(request, env)) {
-    const res = await env.ASSETS.fetch(request);
-    return new Response(res.body, { status: res.status, statusText: res.statusText, headers: privateHeaders(res) });
-  }
-  // Not signed in: show the unlock page, never the case study.
-  const page = await fetchAsset(request, env, '/unlock');
-  const headers = privateHeaders(page);
-  headers.set('Content-Type', 'text/html; charset=utf-8');
-  return new Response(page.body, { status: 401, headers });
-}
-
+// ---------------------------------------------------------------- entry
 export default {
   async fetch(request, env) {
-    const { pathname } = new URL(request.url);
-    if (pathname === '/api/contact') return handleForm('contact', request, env);
-    if (pathname === '/api/subscribe') return handleForm('subscribe', request, env);
-    if (pathname === '/api/unlock') return handleUnlock(request, env);
-    if (GATED.test(pathname)) return handleGated(request, env);
-    return env.ASSETS.fetch(request);
+    const url = new URL(request.url);
+    const { pathname } = url;
+
+    if (pathname === '/api/contact') return withHeaders(await handleContact(request, env), pathname);
+    if (pathname.startsWith('/api/')) return withHeaders(json({ ok: false, error: 'not_found' }, 404), pathname);
+
+    const to = redirectFor(pathname);
+    if (to) return withHeaders(new Response(null, { status: 301, headers: { Location: to } }), pathname);
+
+    let res;
+    if (DENY.test(pathname)) {
+      res = new Response('Not found', { status: 404, headers: { 'Content-Type': 'text/plain; charset=utf-8' } });
+    } else if (request.method !== 'GET' && request.method !== 'HEAD') {
+      res = new Response('Method not allowed', { status: 405, headers: { Allow: 'GET, HEAD' } });
+    } else {
+      res = await env.ASSETS.fetch(request);
+      if (res.status === 404) {
+        const nf = await env.ASSETS.fetch(new Request(new URL('/404', url), { method: 'GET' }));
+        res = new Response(nf.body, { status: 404, headers: { 'Content-Type': 'text/html; charset=utf-8' } });
+      }
+    }
+    return withHeaders(res, pathname, res.status === 404 ? { 'X-Robots-Tag': 'noindex' } : {});
   }
 };

@@ -1,0 +1,26 @@
+# Nakkie A.
+
+> Senior product designer at Moneris. I design accessible, research-led payments products and design systems.
+
+This is a personal portfolio. It is not an official Moneris website, and the views here are my own.
+
+## Pages
+
+- [Nakkie A. | Senior Product Designer](https://nakkies-portfolio.pages.dev/): Senior product designer at Moneris. I design accessible, research-led payments products and design systems.
+- [Work: Go Portal product design case studies | Nakkie A.](https://nakkies-portfolio.pages.dev/work): Four case studies from the Moneris Go Portal redesign: reports, invoicing, recurring payments and a design system.
+- [About Nakkie A., senior product designer in Canada](https://nakkies-portfolio.pages.dev/about): Senior product designer designing payments products at Moneris. Master of Digital Experience Innovation, University of Waterloo.
+- [Contact Nakkie A. about design work or a role](https://nakkies-portfolio.pages.dev/contact): Get in touch about product design work, a role, or a project. I reply by email.
+- [Privacy policy for this portfolio site | Nakkie A.](https://nakkies-portfolio.pages.dev/privacy): How this site handles the information you send through the contact form.
+- [Terms of use for this portfolio site | Nakkie A.](https://nakkies-portfolio.pages.dev/terms): Terms for using this portfolio site: who owns the content, how it may be used, and who to contact with questions.
+- [Accessibility statement and how to report a barrier | Nakkie A.](https://nakkies-portfolio.pages.dev/accessibility): Accessibility statement: what this site aims for, what is known to fall short, and how to report a barrier.
+- [Moneris Go Portal redesign case study | Nakkie A.](https://nakkies-portfolio.pages.dev/moneris): A senior product designer's overview of the Moneris Go Portal redesign: research, decisions and four case studies.
+- [Reports, transaction details and fraud detection | Nakkie A.](https://nakkies-portfolio.pages.dev/moneris-reporting): Helping merchants answer “how much did I sell?” and “what happened to this payment?”
+- [Invoicing and Virtual Terminal | Nakkie A.](https://nakkies-portfolio.pages.dev/moneris-invoicing-virtual-terminal): Taking payments by invoice or by phone without needing payments expertise.
+- [Recurring payments, Vault and Visa Installments | Nakkie A.](https://nakkies-portfolio.pages.dev/moneris-recurring-vault-installments): Making stored cards, repeat billing and installment plans easy to set up and safe to change.
+- [Secure access and the design system | Nakkie A.](https://nakkies-portfolio.pages.dev/moneris-access-design-system): One accessible foundation for every screen, and a sign-in that is secure without being hostile.
+
+## Contact
+
+- Email: osinakachi.anyachebelu@gmail.com
+- LinkedIn: https://www.linkedin.com/in/osinakachi-anyachebelu
+- Behance: https://www.behance.net/osinakaanyache
